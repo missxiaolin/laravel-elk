@@ -7,8 +7,13 @@
     "require": {
         "php": ">=7.0.0",
         "fideloper/proxy": "~3.3",
+        "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "5.5.*",
+        "laravel/scout": "^4.0",
         "laravel/tinker": "~1.0",
+        "predis/predis": "^1.1",
+        "prettus/l5-repository": "^2.6",
+        "tamayo/laravel-scout-elastic": "^3.0",
         "xiaolin/enum": "^0.0.1"
     },
     "require-dev": {

@@ -40,6 +40,24 @@ abstract class RpcServer extends Command
     protected $config;
 
     /**
+     * 请求参数日志
+     * @var string
+     */
+    protected $getContentLog = 'content-log';
+
+    /**
+     * 成功日志
+     * @var string
+     */
+    protected $getSuccessLog = 'success-log';
+
+    /**
+     * 失败日志
+     * @var string
+     */
+    protected $getErrorLog = 'error-log';
+
+    /**
      * Create a new command instance.
      *
      * @return void

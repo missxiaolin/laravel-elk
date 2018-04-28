@@ -61,7 +61,7 @@ class Server extends RpcServer
      */
     public function __construct()
     {
-        $this->setHandler('test',TestHandler::getInstance());
+        $this->setHandler('test', TestHandler::getInstance());
         parent::__construct();
     }
 
@@ -97,6 +97,9 @@ class Server extends RpcServer
         // TODO: Implement receive() method.
         try {
             $data = json_decode($data, true);
+            // 入参落日志
+            el_journal($this->getContentLog, $data);
+
             $service = $data['service'];
             $method = $data['method'];
             $arguments = $data['arguments'];
@@ -106,8 +109,19 @@ class Server extends RpcServer
             }
 
             $result = $this->services[$service]->$method(...$arguments);
+            // 成功落日志
+            el_journal($this->getSuccessLog, $data);
+
             $server->send($fd, $this->success($result));
         } catch (\Exception $ex) {
+            // 错误日志落log
+            $error = [
+                'url' => request()->url(),
+                'method' => request()->getMethod(),
+                'data' => request()->all(),
+                'error' => $ex->getMessage(),
+            ];
+            el_journal($this->getErrorLog, $error);
             $server->send($fd, $this->fail($ex->getCode(), $ex->getMessage()));
         }
     }

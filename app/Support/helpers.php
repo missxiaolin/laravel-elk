@@ -39,3 +39,17 @@ if (!function_exists('api_error')) {
         }
     }
 }
+
+/**
+ * 记录日志
+ * @param $loggerName
+ * @param $body
+ */
+function el_journal($loggerName, $body)
+{
+    $body['ip'] = request()->getClientIp();
+    $job = new \App\Jobs\ElasticSearch\ElasticSearchJournal($loggerName, $body);
+    $name = env('APP_ENV', 'default');
+    $job->onQueue($name);
+    dispatch($job);
+}

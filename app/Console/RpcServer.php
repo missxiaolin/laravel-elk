@@ -50,12 +50,17 @@ abstract class RpcServer extends Command
      * @var string
      */
     protected $getSuccessLog = 'success-log';
-
     /**
      * 失败日志
      * @var string
      */
     protected $getErrorLog = 'error-log';
+
+    /**
+     * 是否开始debug
+     * @var bool
+     */
+    protected $debug = false;
 
     /**
      * Create a new command instance.
